@@ -7,6 +7,7 @@ import com.ticket.app.user.shared.UserDto;
 public interface UsersService extends UserDetailsService {
 	UserDto createUser(UserDto userDetails);
 	UserDto getUserDetailsByEmail(String email);
+	String getProductsByUserId(String userId);
 	
 
 }

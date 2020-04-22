@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ticket.app.user.data.ProductServiceClient;
 import com.ticket.app.user.data.UsersRepository;
 import com.ticket.app.user.entity.UserEntity;
 import com.ticket.app.user.service.UsersService;
@@ -22,12 +23,14 @@ public class UsersServiceImpl implements UsersService {
 		
 	UsersRepository userRepository;
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	ProductServiceClient productServiceClient;
 	
 
 	@Autowired
-	public UsersServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UsersRepository userRepository) {
+	public UsersServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UsersRepository userRepository, ProductServiceClient productServiceClient) {
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.productServiceClient = productServiceClient;
 	}
 
 	@Override
@@ -65,4 +68,15 @@ public class UsersServiceImpl implements UsersService {
 		
 		return new ModelMapper().map(userEntity, UserDto.class);
 	}
+	
+	@Override
+	public String getProductsByUserId(String userId) {
+		
+        String productListList = productServiceClient.getProducts();
+               
+        return productListList;
+
+	}
+	
+	
 }

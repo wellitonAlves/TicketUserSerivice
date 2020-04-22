@@ -38,9 +38,9 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<String> getUser(@PathVariable String userId) {
-
-		return ResponseEntity.status(HttpStatus.CREATED).body("Get Usuario");
+	public ResponseEntity<String> getUserProduct(@PathVariable String userId) {
+		String products = userServices.getProductsByUserId(userId);
+		return ResponseEntity.status(HttpStatus.CREATED).body("Get Products "+ products);
 	}
 	
 	@GetMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
