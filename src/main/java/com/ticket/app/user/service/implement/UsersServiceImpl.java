@@ -1,7 +1,6 @@
 package com.ticket.app.user.service.implement;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -20,23 +19,21 @@ import com.ticket.app.user.shared.UserDto;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-	
-	
+		
 	UsersRepository userRepository;
-//	BCryptPasswordEncoder bCryptPasswordEncoder;
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 
 	@Autowired
-	public UsersServiceImpl(UsersRepository userRepository) {
+	public UsersServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UsersRepository userRepository) {
 		this.userRepository = userRepository;
-//		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
 	public UserDto createUser(UserDto userDetails) {
 		
-		userDetails.setId(UUID.randomUUID().toString());
-//		userDetails.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
+		userDetails.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));;
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
@@ -57,7 +54,7 @@ public class UsersServiceImpl implements UsersService {
 		if(userEntity == null)
 			throw new UsernameNotFoundException(username);
 		
-		return new User(userEntity.getEmail(), userEntity.getEcryptedPassword(), true, true, true, true , new ArrayList<>());
+		return new User(userEntity.getEmail(), userEntity.getPassword(), true, true, true, true , new ArrayList<>());
 	}
 
 	@Override

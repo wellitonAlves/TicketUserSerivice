@@ -28,7 +28,7 @@ public class UserEntity implements Serializable {
 	private String email;
 	
 	@Column(nullable = false, unique = true)
-	private String ecryptedPassword;
+	private String password;
 
 	public long getId() {
 		return id;
@@ -62,12 +62,12 @@ public class UserEntity implements Serializable {
 		this.email = email;
 	}
 
-	public String getEcryptedPassword() {
-		return ecryptedPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEcryptedPassword(String ecryptedPassword) {
-		this.ecryptedPassword = ecryptedPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public static long getSerialversionuid() {
