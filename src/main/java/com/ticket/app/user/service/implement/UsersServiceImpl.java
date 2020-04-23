@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public UserDto createUser(UserDto userDetails) {
 		
-		userDetails.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));;
+		userDetails.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
@@ -72,7 +72,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String getProductsByUserId(String userId) {
 		
-        String productListList = productServiceClient.getProducts();
+        String productListList = productServiceClient.getProducts(userId);
                
         return productListList;
 

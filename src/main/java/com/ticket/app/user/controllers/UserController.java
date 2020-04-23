@@ -39,16 +39,14 @@ public class UserController {
 
 	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> getUserProduct(@PathVariable String userId) {
-		String products = userServices.getProductsByUserId(userId);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Get Products "+ products);
+		
+		
+		String products = userServices.getProductsByUserId(userId);	
+		return ResponseEntity.status(HttpStatus.CREATED).body("Get de usuário para:"+ products);
+		
+		
 	}
 	
-	@GetMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<String> getUsers() {
-
-		return ResponseEntity.status(HttpStatus.CREATED).body("Get Lista Usuarios");
-	}
-
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, 
 				 produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CreateUserResponseModel> createUser(@Valid @RequestBody CreateUserRequestModel userDetails) {
