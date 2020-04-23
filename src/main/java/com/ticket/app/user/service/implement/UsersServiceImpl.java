@@ -1,6 +1,7 @@
 package com.ticket.app.user.service.implement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -15,6 +16,7 @@ import com.ticket.app.user.data.ProductServiceClient;
 import com.ticket.app.user.data.UsersRepository;
 import com.ticket.app.user.entity.UserEntity;
 import com.ticket.app.user.service.UsersService;
+import com.ticket.app.user.shared.ProductDto;
 import com.ticket.app.user.shared.UserDto;
 
 
@@ -70,9 +72,9 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public String getProductsByUserId(String userId) {
+	public List<ProductDto> getProductsByUserId(String userId) {
 		
-        String productListList = productServiceClient.getProducts(userId);
+		List<ProductDto> productListList = productServiceClient.getProducts(userId);
                
         return productListList;
 

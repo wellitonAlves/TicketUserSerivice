@@ -1,5 +1,7 @@
 package com.ticket.app.user.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ticket.app.user.model.CreateUserProductResponseModel;
 import com.ticket.app.user.model.CreateUserRequestModel;
 import com.ticket.app.user.model.CreateUserResponseModel;
 import com.ticket.app.user.service.UsersService;
+import com.ticket.app.user.shared.ProductDto;
 import com.ticket.app.user.shared.UserDto;
 
 
@@ -38,11 +43,14 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<String> getUserProduct(@PathVariable String userId) {
+	public ResponseEntity<List<ProductDto>> getUserProduct(@PathVariable String userId) {
 		
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		
-		String products = userServices.getProductsByUserId(userId);	
-		return ResponseEntity.status(HttpStatus.CREATED).body("Get de usuário para:"+ products);
+		List<ProductDto> products = userServices.getProductsByUserId(userId);			
+		
+		return ResponseEntity.status(HttpStatus.OK).body(products);
 		
 		
 	}

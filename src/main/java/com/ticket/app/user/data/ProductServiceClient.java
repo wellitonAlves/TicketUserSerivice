@@ -1,10 +1,13 @@
 package com.ticket.app.user.data;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ticket.app.user.shared.ProductDto;
 
 import feign.hystrix.FallbackFactory;
 
@@ -12,7 +15,7 @@ import feign.hystrix.FallbackFactory;
 public interface ProductServiceClient {
 	
 	@GetMapping("/product/{id}")
-	public String getProducts(@PathVariable String id);
+	public List<ProductDto> getProducts(@PathVariable String id);
 }
 
 @Component
